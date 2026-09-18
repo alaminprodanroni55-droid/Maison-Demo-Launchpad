@@ -1,846 +1,806 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>MAISON — Luxury E-Commerce &amp; Atelier Management System | Interactive Demo Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  
-  <style>
-    :root {
-      --bg: #0A0908;
-      --card-bg: #12110E;
-      --card-hover: #191713;
-      --border: rgba(197, 168, 128, 0.18);
-      --border-hover: rgba(197, 168, 128, 0.6);
-      --gold: #C5A880;
-      --gold-light: #E7D7C1;
-      --gold-glow: rgba(197, 168, 128, 0.25);
-      --text: #F5F1E8;
-      --muted: #8C8471;
-      --green: #10B981;
-      --radius: 18px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MAISON — Flagship Luxury Commerce Architecture</title>
+<meta name="description" content="MAISON is a complete, turnkey luxury e-commerce platform built on Next.js 14 — 360° product studio, Web-AR, digital provenance, made-to-measure personalization, and a full admin suite." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
 
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-    }
+<style>
+  :root {
+    --ink: #141310;
+    --ink-soft: #322E25;
+    --ivory: #F7F4EE;
+    --ivory-deep: #EFEADD;
+    --card: #FFFFFF;
+    --gold: #B89248;
+    --gold-deep: #86651F;
+    --gold-light: #F1E6C9;
+    --border: #E4DCC8;
+    --muted: #6B6656;
+    --night: #0C0B08;
+    --night-card: #17150F;
+    --night-border: #2C2818;
+    --shadow: 0 24px 60px -20px rgba(20, 19, 16, 0.35);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-    html, body {
-      width: 100%;
-      max-width: 100vw;
-      overflow-x: hidden !important;
-      position: relative;
-    }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      padding: 0;
-      margin: 0;
-    }
+  body {
+    margin: 0;
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    /* Ambient Background Glow (Safe for Mobile Viewports) */
-    .ambient-glow {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 600px;
-      height: 450px;
-      background: radial-gradient(circle, rgba(197, 168, 128, 0.14) 0%, rgba(10, 9, 8, 0) 70%);
-      filter: blur(70px);
-      z-index: 0;
-      pointer-events: none;
-    }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
 
-    .ambient-bottom-glow {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 500px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(197, 168, 128, 0.08) 0%, rgba(10, 9, 8, 0) 70%);
-      filter: blur(80px);
-      z-index: 0;
-      pointer-events: none;
-    }
+  h1, h2, h3 { font-family: 'Cinzel', serif; font-weight: 600; color: var(--ink); margin: 0; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
 
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 16px;
-      position: relative;
-      z-index: 10;
-    }
+  :focus-visible {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 3px;
+  }
 
-    /* Top Navigation Header */
-    header {
-      width: 100%;
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(197, 168, 128, 0.12);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10, 9, 8, 0.9);
-    }
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #FFFFFF;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .logo span { color: var(--gold); }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      color: var(--green);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .ping-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px var(--green);
-      animation: pulse-green 2s infinite;
-    }
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247, 244, 238, 0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+  }
+  .nav-mark {
+    font-family: 'Cinzel', serif;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .nav-links a { text-decoration: none; position: relative; padding: 4px 0; }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 100%; bottom: 0;
+    height: 1px;
+    background: var(--gold-deep);
+    transition: right 0.35s var(--ease);
+  }
+  .nav-links a:hover::after { right: 0; }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--night);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .nav-cta:hover { background: var(--gold-deep); color: var(--ivory); transform: translateY(-1px); }
+  .nav-links-mobile { display: none; }
 
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      padding: 50px 0 35px;
-    }
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--gold);
-      font-weight: 800;
-      margin-bottom: 18px;
-      background: rgba(197, 168, 128, 0.08);
-      padding: 6px 14px;
-      border-radius: 99px;
-      border: 1px solid var(--border);
-    }
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 32px;
-      line-height: 1.22;
-      color: #FFFFFF;
-      max-width: 900px;
-      margin: 0 auto 18px;
-      font-weight: 600;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--gold-light);
-      background: linear-gradient(135deg, #FFE8C2 0%, #C5A880 50%, #9B7D4E 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero p {
-      font-size: 14.5px;
-      color: var(--muted);
-      max-width: 640px;
-      margin: 0 auto 30px;
-      font-weight: 300;
-      padding: 0 8px;
-    }
+  @media (max-width: 780px) {
+    .nav-links { display: none; }
+  }
 
-    /* CTA Group */
-    .cta-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto 40px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 24px;
-      border-radius: 14px;
-      font-size: 11.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      cursor: pointer;
-      width: 100%;
-      text-align: center;
-    }
-    .btn-gold {
-      background: var(--gold);
-      color: #0A0908;
-      box-shadow: 0 8px 24px var(--gold-glow);
-      border: 1px solid var(--gold);
-    }
-    .btn-gold:hover {
-      background: #FFFFFF;
-      transform: translateY(-2px);
-    }
-    .btn-outline {
-      background: rgba(255, 255, 255, 0.03);
-      color: #FFFFFF;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .btn-outline:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(197, 168, 128, 0.08);
-    }
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 92px 0 60px;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -220px;
+    right: -160px;
+    width: 620px;
+    height: 620px;
+    background: radial-gradient(circle, rgba(184, 146, 72, 0.22), transparent 68%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.02fr 0.98fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 940px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
 
-    /* Credentials Card */
-    .cred-wrapper {
-      width: 100%;
-      max-width: 640px;
-      margin: 0 auto 60px;
-      background: linear-gradient(180deg, #151410 0%, #100F0C 100%);
-      border: 1px solid var(--border-hover);
-      border-radius: var(--radius);
-      padding: 20px 18px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-      position: relative;
-    }
-    .cred-wrapper::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-    .cred-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed rgba(197, 168, 128, 0.2);
-    }
-    .cred-top-title {
-      font-size: 10px;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .cred-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .cred-box {
-      background: rgba(10, 9, 8, 0.85);
-      border: 1px solid rgba(197, 168, 128, 0.2);
-      border-radius: 12px;
-      padding: 12px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-    .cred-info { text-align: left; min-width: 0; }
-    .cred-label {
-      font-size: 8.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-    .cred-val {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12.5px;
-      color: #FFFFFF;
-      font-weight: 600;
-      word-break: break-all;
-    }
-    .copy-chip {
-      background: rgba(197, 168, 128, 0.12);
-      border: 1px solid rgba(197, 168, 128, 0.35);
-      color: var(--gold);
-      font-size: 9.5px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 800;
-      text-transform: uppercase;
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: all 0.2s;
-    }
-    .copy-chip:hover {
-      background: var(--gold);
-      color: #000;
-    }
-    .copy-chip.copied {
-      background: var(--green);
-      color: #fff;
-      border-color: var(--green);
-    }
+  .hero-copy { position: relative; z-index: 2; }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold-deep);
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .kicker::before { content: '✦'; }
 
-    /* Section Headings */
-    .section-head {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .section-head span {
-      font-size: 9.5px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: var(--gold);
-      font-weight: 800;
-      display: block;
-      margin-bottom: 6px;
-    }
-    .section-head h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      color: #FFFFFF;
-      font-weight: 600;
-      padding: 0 10px;
-    }
+  .hero-copy h1 {
+    font-size: clamp(34px, 4.4vw, 52px);
+    line-height: 1.14;
+    max-width: 16ch;
+  }
+  .hero-copy .lede {
+    margin: 22px 0 32px;
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 46ch;
+  }
 
-    /* Feature Cards - 100% FIXED MOBILE LAYOUT */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin-bottom: 60px;
-      width: 100%;
-    }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px 26px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .btn-primary { background: var(--gold); color: var(--night); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -10px rgba(184,146,72,0.45); background: var(--gold-deep); color: var(--ivory); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--gold-deep); color: var(--gold-deep); }
 
-    .feature-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px 20px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column; /* 100% FIXED: Stacks vertically properly */
-      justify-content: space-between;
-      transition: all 0.3s ease;
-      width: 100%;
-      text-align: left;
-    }
-    .feature-card:hover {
-      border-color: var(--border-hover);
-      background: var(--card-hover);
-      transform: translateY(-3px);
-    }
+  .stack-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
 
-    .card-top {
-      width: 100%;
-      display: block;
-      margin-bottom: 18px;
-    }
-    .card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: rgba(197, 168, 128, 0.08);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      margin-bottom: 14px;
-      color: var(--gold);
-    }
-    .feature-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      color: #FFFFFF;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-    .feature-card p {
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.6;
-      margin: 0;
-    }
-    
-    .card-footer {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--gold);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding-top: 14px;
-    }
+  /* Hero visual: tilt-responsive device composition */
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    perspective: 1400px;
+    display: flex;
+    justify-content: center;
+  }
+  .tilt-stage {
+    position: relative;
+    display: inline-block;
+    transform-style: preserve-3d;
+    transition: transform 0.35s var(--ease);
+    will-change: transform;
+  }
+  .placeholder-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.7);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .phone-mock {
+    position: relative;
+    width: min(300px, 72vw);
+    margin: 0 auto;
+    background: var(--ink);
+    border-radius: 38px;
+    padding: 16px 14px;
+    box-shadow: var(--shadow);
+    transform: translateZ(40px);
+    overflow: hidden;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 84px;
+    height: 22px;
+    background: var(--ink);
+    border-radius: 0 0 16px 16px;
+    z-index: 3;
+  }
+  .phone-screen {
+    position: relative;
+    background: var(--ivory);
+    border-radius: 26px;
+    aspect-ratio: 9/19.2;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+  }
+  .phone-screen .placeholder-note { font-size: 10.5px; padding: 9px 12px; }
 
-    /* Mobile QR Showcase Banner */
-    .mobile-banner {
-      background: linear-gradient(135deg, #14120E 0%, #1B1812 100%);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 24px;
-      margin-bottom: 60px;
-      width: 100%;
-    }
-    .mobile-banner-text h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      color: #FFFFFF;
-      margin-bottom: 8px;
-    }
-    .mobile-banner-text p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-    .qr-box {
-      background: #FFFFFF;
-      padding: 10px;
-      border-radius: 14px;
-      border: 2.5px solid var(--gold);
-      text-align: center;
-    }
-    .qr-box img {
-      width: 125px;
-      height: 125px;
-      display: block;
-    }
-    .qr-box small {
-      display: block;
-      margin-top: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      color: #0A0908;
-      text-transform: uppercase;
-    }
+  /* Signature moment: a soft light sweep across every phone screen, plus a slow
+     breathing zoom once a real screenshot is loaded in. Both respect reduced-motion
+     via the global override at the top of this file. */
+  .phone-shine {
+    position: absolute;
+    top: -30%;
+    left: -70%;
+    width: 55%;
+    height: 170%;
+    background: linear-gradient(75deg, transparent 42%, rgba(255,255,255,0.5) 50%, transparent 58%);
+    pointer-events: none;
+    z-index: 4;
+    animation: shineSweep 6s ease-in-out infinite;
+  }
+  @keyframes shineSweep {
+    0%   { transform: translateX(0) rotate(8deg); opacity: 0; }
+    6%   { opacity: 0.75; }
+    22%  { transform: translateX(340%) rotate(8deg); opacity: 0; }
+    100% { transform: translateX(340%) rotate(8deg); opacity: 0; }
+  }
+  .phone-screen img, .mini-phone-screen img {
+    animation: kenBurns 14s ease-in-out infinite alternate;
+    transform-origin: center;
+  }
+  @keyframes kenBurns {
+    from { transform: scale(1); }
+    to   { transform: scale(1.07); }
+  }
 
-    /* Specs Badges Strip */
-    .specs-strip {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 14px 20px;
-      flex-wrap: wrap;
-      margin-bottom: 60px;
-      opacity: 0.8;
-      padding: 0 10px;
-    }
-    .spec-item {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+  .float-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: var(--shadow);
+    font-size: 12px;
+    z-index: 5;
+    width: max-content;
+    max-width: 190px;
+    transform: translateZ(90px);
+  }
+  .float-badge .b-title { display: block; font-weight: 700; color: var(--ink); }
+  .float-badge .b-sub { display: block; color: var(--muted); font-size: 10.5px; }
+  .badge-a { top: 8%; left: -150px; }
+  .badge-b { bottom: 10%; left: -168px; }
 
-    /* Footer */
-    footer {
-      border-top: 1px solid rgba(197, 168, 128, 0.12);
-      padding: 30px 16px 45px;
-      text-align: center;
-      font-size: 11px;
-      color: var(--muted);
-    }
+  @media (max-width: 940px) {
+    .float-badge { display: none; }
+  }
 
-    /* Toast */
-    #toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: #FFFFFF;
-      color: #0A0908;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 10px 20px;
-      border-radius: 999px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 1000;
-      white-space: nowrap;
-    }
-    #toast.active {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
+  /* Hero load-in choreography */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: revealUp 0.8s var(--ease) forwards;
+  }
+  @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.30s; } .d4 { animation-delay: 0.42s; }
+  .d5 { animation-delay: 0.55s; } .d6 { animation-delay: 0.68s; }
 
-    @keyframes pulse-green {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
-      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
+  /* ---------- Stat band ---------- */
+  .stat-band {
+    background: var(--night);
+    color: var(--ivory);
+    padding: 46px 0;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+  @media (max-width: 780px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    color: var(--gold);
+  }
+  .stat-label {
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: #B8B2A0;
+    letter-spacing: 0.02em;
+  }
 
-    /* Desktop Breakpoint Enhancements */
-    @media (min-width: 640px) {
-      .cta-group { flex-direction: row; }
-      .btn { width: auto; padding: 16px 30px; }
-      .cred-grid { grid-template-columns: 1fr 1fr; }
-    }
+  /* ---------- Section shell ---------- */
+  section { padding: 96px 0; }
+  .section-head { max-width: 640px; margin-bottom: 56px; }
+  .section-head .kicker { margin-bottom: 14px; }
+  .section-head h2 { font-size: clamp(26px, 3vw, 34px); line-height: 1.25; }
+  .section-head p { margin-top: 14px; color: var(--muted); font-size: 15.5px; max-width: 52ch; }
 
-    @media (min-width: 768px) {
-      .container { padding: 0 24px; }
-      .hero { padding: 80px 0 50px; }
-      .hero h1 { font-size: 48px; }
-      .hero p { font-size: 16px; }
-      .section-head h2 { font-size: 34px; }
-      .feature-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .mobile-banner { flex-direction: row; text-align: left; padding: 40px; }
-      .mobile-banner-text p { margin-bottom: 0; }
-    }
+  /* ---------- Feature rows ---------- */
+  .feature-row {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: 60px;
+    align-items: center;
+    padding: 54px 0;
+    border-top: 1px solid var(--border);
+  }
+  .feature-row:last-child { border-bottom: 1px solid var(--border); }
+  .feature-row.rev { grid-template-columns: 1.18fr 0.82fr; }
+  .feature-row.rev .feature-visual { order: 2; }
+  @media (max-width: 860px) {
+    .feature-row, .feature-row.rev { grid-template-columns: 1fr; }
+    .feature-row.rev .feature-visual { order: 0; }
+  }
 
-    @media (min-width: 1024px) {
-      .hero h1 { font-size: 56px; }
-      .feature-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-  </style>
+  .feature-copy h3 { font-size: 23px; margin-bottom: 12px; }
+  .feature-copy p { color: var(--muted); font-size: 15px; margin-bottom: 18px; max-width: 42ch; }
+  .feature-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .feature-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13.8px;
+    color: var(--ink-soft);
+  }
+  .feature-list li::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold-deep);
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .feature-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* Reusable mobile-frame component: wraps a mobile screenshot placeholder everywhere
+     a visual is needed, since only phone screenshots are available (no desktop shots). */
+  .mini-phone {
+    position: relative;
+    width: min(190px, 100%);
+    background: var(--ink);
+    border-radius: 26px;
+    padding: 10px 8px;
+    box-shadow: var(--shadow);
+    margin: 0 auto;
+    overflow: hidden;
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .mini-phone:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -20px rgba(20,19,16,0.32); }
+  .mini-phone-notch {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 54px;
+    height: 14px;
+    background: var(--ink);
+    border-radius: 0 0 10px 10px;
+    z-index: 3;
+  }
+  .mini-phone-screen {
+    background: var(--ivory);
+    border-radius: 18px;
+    aspect-ratio: 9/19.2;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    text-align: center;
+  }
+  .mini-phone-screen .placeholder-note { font-size: 9.5px; padding: 8px 10px; }
+
+  /* ---------- Marquee ---------- */
+  .marquee-section { background: var(--ivory-deep); padding: 52px 0; overflow: hidden; }
+  .marquee-label { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: 28px; letter-spacing: 0.05em; }
+  .marquee-track { display: flex; width: max-content; animation: scrollX 26s linear infinite; }
+  .marquee-track span {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: var(--ink-soft);
+    padding: 0 44px;
+    white-space: nowrap;
+    opacity: 0.75;
+  }
+  @keyframes scrollX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- Screens grid ---------- */
+  .screens-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  @media (max-width: 860px) { .screens-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .screens-grid { grid-template-columns: 1fr; } }
+  .screen-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+  .screen-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+  .screen-thumb {
+    background: repeating-linear-gradient(135deg, var(--ivory) 0 2px, var(--ivory-deep) 2px 40px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 14px;
+  }
+  .screen-meta { padding: 14px 16px; font-size: 13px; color: var(--ink-soft); border-top: 1px solid var(--border); font-weight: 600; }
+
+  /* ---------- CTA band ---------- */
+  .cta-band {
+    background: var(--night);
+    color: var(--ivory);
+    padding: 100px 0;
+    text-align: center;
+  }
+  .cta-band h2 { color: var(--ivory); font-size: clamp(28px, 3.6vw, 40px); max-width: 20ch; margin: 0 auto; }
+  .cta-band p { color: #B8B2A0; max-width: 50ch; margin: 20px auto 34px; font-size: 15.5px; }
+  .cta-band .btn-row { justify-content: center; margin-bottom: 22px; }
+  .cta-band .btn-ghost { border-color: var(--night-border); color: var(--ivory); }
+  .cta-band .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .cta-note { font-size: 12.5px; color: #8B856F; font-family: 'JetBrains Mono', monospace; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 40px 0; border-top: 1px solid var(--border); }
+  .foot-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .foot-mark { font-family: 'Cinzel', serif; letter-spacing: 0.1em; color: var(--ink); font-size: 14px; }
+</style>
 </head>
 <body>
 
-  <div class="ambient-glow"></div>
-  <div class="ambient-bottom-glow"></div>
+  <!-- ================================================================
+       📸 PASTE YOUR SCREENSHOT LINKS HERE — nowhere else needs editing.
 
-  <!-- Header -->
-  <header>
-    <div class="container header-inner">
-      <a href="/" class="logo">
-        MAI<span>SON</span>
-      </a>
-      <div class="status-badge">
-        <span class="ping-dot"></span>
-        <span>Live Sandbox</span>
-      </div>
+       Just fill in the quotes below with an image URL (or a local path
+       like "images/homepage.jpg" if you upload screenshots alongside
+       this file). Leave any line as "" to keep the placeholder box.
+       ================================================================ -->
+  <script>
+    const IMAGE_LINKS = {
+      hero:             "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789701770500-p3ogs0.webp",   // Hero phone (top of page)
+
+      feature_360:      "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789702114391-k2y0tx.webp",   // 360° / AR viewer
+      feature_passport: "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789703523889-pme24a.webp",   // Digital product passport
+      feature_monogram: "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789702663900-qev55q.webp",   // Made-to-Measure / monogram UI
+      feature_checkout: "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789703301113-cvx1e6.webp",   // Checkout flow
+      feature_admin:    "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789703722143-8dxl5j.webp",   // Admin dashboard
+      feature_pwa:      "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789703847300-rfwode.webp",   // Mobile PWA / RTL
+
+      screen_home:      "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789704131820-9t2qtt.webp",   // Screens gallery: Homepage
+      screen_shop:      "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789704281313-b9kcg6.webp",   // Screens gallery: Shop & filters
+      screen_pdp:       "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789704398212-za7xqh.webp",   // Screens gallery: Product page
+      screen_checkout:  "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789706181562-mcq1f7.webp",   // Screens gallery: Checkout
+      screen_admin:     "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789705751033-l0wmby.webp",   // Screens gallery: Admin orders
+      screen_rtl:       "https://czdghkghktjgchxrfrvi.supabase.co/storage/v1/object/public/maison-uploads/products/1789705915645-ogiadm.webp"    // Screens gallery: Arabic RTL storefront
+    };
+  </script>
+  <!-- ================================================================ -->
+
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="wrap nav-row">
+      <div class="nav-mark">MAISON</div>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#screens">Screens</a>
+        <a href="#stack">Tech Stack</a>
+        <a href="#get-it">Documentation</a>
+      </nav>
+      <a class="nav-cta" href="#get-it">View Live Demo</a>
     </div>
   </header>
 
-  <main>
-    <div class="container">
-
-      <!-- Hero Section -->
-      <section class="hero">
-        <div class="hero-eyebrow">
-          ✦ CodeCanyon Official Preview
+  <!-- ============ HERO ============ -->
+  <section class="hero" style="padding-top: 92px;">
+    <div class="hero-glow"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="kicker reveal-up d1">Flagship Commerce Architecture</span>
+        <h1 class="reveal-up d2">Engineered for elite luxury commerce.</h1>
+        <p class="lede reveal-up d3">A complete, turnkey e-commerce platform for boutique and luxury brands — 360° product studio, in-browser Web-AR, cryptographic provenance, and made-to-measure personalization, built on a modern, server-authoritative architecture.</p>
+        <div class="btn-row reveal-up d4">
+          <a class="btn btn-primary" href="#get-it">View Live Storefront</a>
+          <a class="btn btn-ghost" href="#get-it">Explore Admin Panel</a>
         </div>
-        <h1>
-          Engineered for the Top 1%.<br />
-          Crafted in <em>Next.js 14 Architecture</em>.
-        </h1>
-        <p>
-          The turnkey luxury marketplace suite equipped with in-browser 3D Web-AR, Made-to-Measure tailoring, realtime collaborative shopping, and tamper-proof server-side pricing.
-        </p>
-
-        <!-- Main Action Buttons -->
-        <div class="cta-group">
-          <a href="https://maison-luxury-theme.vercel.app" target="_blank" class="btn btn-gold">
-            <span>Storefront Demo</span>
-            <span>&rarr;</span>
-          </a>
-          <a href="https://maison-luxury-theme.vercel.app/admin" target="_blank" class="btn btn-outline">
-            <span>Admin Dashboard</span>
-            <span>&rarr;</span>
-          </a>
-        </div>
-
-        <!-- 1-Click Master Admin Credentials Box -->
-        <div class="cred-wrapper">
-          <div class="cred-top">
-            <span class="cred-top-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              <span>Instant Admin Demo Access</span>
-            </span>
-            <span style="font-size: 9.5px; font-family: 'JetBrains Mono', monospace; color: var(--muted);">Auto-Refreshed</span>
-          </div>
-
-          <div class="cred-grid">
-            <div class="cred-box">
-              <div class="cred-info">
-                <div class="cred-label">Admin Email</div>
-                <div class="cred-val">admin@maison.com</div>
-              </div>
-              <button class="copy-chip" onclick="copyText('admin@maison.com', this)">Copy</button>
-            </div>
-
-            <div class="cred-box">
-              <div class="cred-info">
-                <div class="cred-label">Admin Password</div>
-                <div class="cred-val">Admin123456!</div>
-              </div>
-              <button class="copy-chip" onclick="copyText('Admin123456!', this)">Copy</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Interactive Direct Testing Showcase Grid -->
-      <section>
-        <div class="section-head">
-          <span>Interactive Test Drive</span>
-          <h2>Deep-Dive Into Standout Features</h2>
-        </div>
-
-        <div class="feature-grid">
-          
-          <!-- Card 1: 3D & Web-AR -->
-          <a href="/product/13" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">🪐</div>
-              <h3>360° Studio &amp; Web-AR</h3>
-              <p>Test in-browser 3D orbit rotation with inertia physics and mobile Augmented Reality (USDZ &amp; GLB) without downloading any app.</p>
-            </div>
-            <div class="card-footer">
-              <span>Test Watch in 3D / AR</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 2: Made-to-Measure -->
-          <a href="/product/1" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">📐</div>
-              <h3>Bespoke Made-to-Measure</h3>
-              <p>Interactive anatomical body &amp; footwear vector diagram that highlights target measurement fields with 1-click profile save.</p>
-            </div>
-            <div class="card-footer">
-              <span>Test Tailoring Form</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 3: Monogramming -->
-          <a href="/product/8" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">✨</div>
-              <h3>24k Gold Monogramming</h3>
-              <p>Realtime foil stamping &amp; debossing visualizer positioned accurately on top of leather textures with custom typography styles.</p>
-            </div>
-            <div class="card-footer">
-              <span>Test Stamping Tool</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 4: Co-Shopping -->
-          <a href="/product/1?lounge=VIP-DEMO" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">👥</div>
-              <h3>Realtime Co-Shopping</h3>
-              <p>Powered by Supabase WebSockets. Shop live with friends with synchronized color swatches, live typing, and collaborative shared cart.</p>
-            </div>
-            <div class="card-footer">
-              <span>Join Live Room</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 5: Tamper-Proof Checkout -->
-          <a href="/checkout" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">🔒</div>
-              <h3>Authoritative Checkout</h3>
-              <p>Every single cent, bundle discount, coupon code, and wallet credit is validated strictly on server-side to prevent client price tampering.</p>
-            </div>
-            <div class="card-footer">
-              <span>Inspect Checkout Funnel</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 6: Barcode Invoicing -->
-          <a href="/admin?tab=orders" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">🧾</div>
-              <h3>Barcode Thermal Slips</h3>
-              <p>1-click printable customer tax invoices and courier parcel slips with dynamic barcode rendering directly from the admin panel.</p>
-            </div>
-            <div class="card-footer">
-              <span>Open Orders Dispatch</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 7: True Arabic RTL -->
-          <a href="/shop" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">🌍</div>
-              <h3>True Arabic RTL Mode</h3>
-              <p>Architectural right-to-left layout mirroring with localized currencies (SAR, AED, KWD) and bundled Arabic dictionaries for GCC expansion.</p>
-            </div>
-            <div class="card-footer">
-              <span>View Mirrored Catalog</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 8: Digital Passport -->
-          <a href="/product/13" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">📜</div>
-              <h3>Digital Product Passport</h3>
-              <p>Cryptographic SHA-256 ledger certificate verifying artisan origin, raw material provenance, and printable certificate of authenticity.</p>
-            </div>
-            <div class="card-footer">
-              <span>Authenticate Ledger</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 9: AI Stylist -->
-          <a href="/product/1" target="_blank" class="feature-card">
-            <div class="card-top">
-              <div class="card-icon">🤖</div>
-              <h3>Atelier AI Stylist</h3>
-              <p>Interactive chat stylist that analyzes catalog products, offers size recommendations, and provides real-time outfit pairing suggestions.</p>
-            </div>
-            <div class="card-footer">
-              <span>Chat with Stylist</span>
-              <span>&rarr;</span>
-            </div>
-          </a>
-
-        </div>
-      </section>
-
-      <!-- Smartphone QR Scanner Showcase Banner -->
-      <section class="mobile-banner">
-        <div class="mobile-banner-text">
-          <h3>Test the Native-Grade Mobile PWA on Your Phone</h3>
-          <p>
-            Maison functions like a bespoke $25,000 native app on iOS Safari and Android Chrome. Scan this QR code directly with your phone camera to experience 60fps butter-smooth browsing and home-screen install prompts.
-          </p>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); display: flex; align-items: center; justify-content: center; gap: 8px;">
-            <span>⚡ Zero-Lag App &bull; Offline Capable &bull; Touch Optimized</span>
-          </div>
-        </div>
-
-        <div class="qr-box">
-          <img id="qrImage" src="" alt="Scan to test Mobile Storefront" />
-          <small>Scan With Camera</small>
-        </div>
-      </section>
-
-      <!-- Engineering & Infrastructure Highlights -->
-      <div class="specs-strip">
-        <div class="spec-item"><span>✦</span> Next.js 14 App Router</div>
-        <div class="spec-item"><span>✦</span> TypeScript Strict</div>
-        <div class="spec-item"><span>✦</span> Prisma PostgreSQL</div>
-        <div class="spec-item"><span>✦</span> Supabase Realtime</div>
-        <div class="spec-item"><span>✦</span> Upstash Redis DDoS Shield</div>
-        <div class="spec-item"><span>✦</span> Playwright E2E Verified</div>
+        <div class="stack-line reveal-up d5">Next.js 14 · TypeScript · Prisma · PostgreSQL · Stripe · Supabase</div>
       </div>
 
-    </div>
-  </main>
+      <div class="hero-visual reveal-up d6">
+        <div class="tilt-stage" id="tiltStage">
+          <div class="float-badge badge-a">
+            <span>⚡</span>
+            <span><span class="b-title">99+ Mobile Speed</span><span class="b-sub">Core Web Vitals optimized</span></span>
+          </div>
 
+          <div class="phone-mock">
+            <div class="phone-notch"></div><div class="phone-shine" style="animation-delay:0s;"></div>
+            <div class="phone-screen" data-img="hero">
+              <div class="placeholder-note">Replace with a mobile screenshot<br>e.g. <code>/images/mobile-pdp.jpg</code></div>
+            </div>
+          </div>
+
+          <div class="float-badge badge-b">
+            <span>🔒</span>
+            <span><span class="b-title">SHA-256 Passports</span><span class="b-sub">Cryptographic authenticity</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STAT BAND ============ -->
+  <div class="stat-band">
+    <div class="wrap stat-grid">
+      <div><div class="stat-num">8</div><div class="stat-label">Core Commerce Modules</div></div>
+      <div><div class="stat-num">3</div><div class="stat-label">Languages incl. Arabic RTL</div></div>
+      <div><div class="stat-num">6</div><div class="stat-label">Checkout &amp; Payment Methods</div></div>
+      <div><div class="stat-num">25+</div><div class="stat-label">Admin Dashboard Modules</div></div>
+    </div>
+  </div>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">What's Inside</span>
+        <h2>Every module a luxury storefront actually needs.</h2>
+        <p>Not a generic storefront with a coat of paint — MAISON is built around the specific mechanics of high-consideration, high-value purchases.</p>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-copy">
+          <h3>360° Studio &amp; Web-AR</h3>
+          <p>Let a shopper examine a piece the way they would in a boutique — spin it, zoom into the finish, then place it in their own room without installing an app.</p>
+          <ul class="feature-list">
+            <li>Smooth, momentum-based 360° turntable viewer</li>
+            <li>Native Web-AR via USDZ (iOS) and GLB (Android)</li>
+            <li>Zero third-party app required — works in the browser</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:1.2s;"></div><div class="mini-phone-screen" data-img="feature_360"><div class="placeholder-note">360° / AR viewer screenshot<br><code>/images/product-360.jpg</code></div></div></div>
+        </div>
+      </div>
+
+      <div class="feature-row rev">
+        <div class="feature-copy">
+          <h3>Digital Provenance Passport</h3>
+          <p>Every piece can carry a cryptographic SHA-256 certificate — sourcing map, materials, and craftsmanship history a buyer can verify, not just read.</p>
+          <ul class="feature-list">
+            <li>Tamper-evident authenticity record per product</li>
+            <li>Sourcing map with origin and material detail</li>
+            <li>Builds trust for high-value, considered purchases</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:2.4s;"></div><div class="mini-phone-screen" data-img="feature_passport"><div class="placeholder-note">Digital passport screenshot<br><code>/images/passport.jpg</code></div></div></div>
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-copy">
+          <h3>Made-to-Measure &amp; Monogramming</h3>
+          <p>Bundle builder, size-chart-aware variant matrices, and live monogram preview — personalization that reflects in the price and the order, not just the UI.</p>
+          <ul class="feature-list">
+            <li>SKU-level variant and bundle configuration</li>
+            <li>Real-time monogram / initials preview</li>
+            <li>Personalization options priced server-side</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:3.6s;"></div><div class="mini-phone-screen" data-img="feature_monogram"><div class="placeholder-note">Personalization / monogram UI<br><code>/images/monogram.jpg</code></div></div></div>
+        </div>
+      </div>
+
+      <div class="feature-row rev">
+        <div class="feature-copy">
+          <h3>Tamper-Proof Checkout</h3>
+          <p>Pricing, coupons, tax, and wallet deductions are recalculated server-side at checkout — a shopper's browser can never dictate what they pay.</p>
+          <ul class="feature-list">
+            <li>Server-authoritative pricing on every order</li>
+            <li>Stripe, PayPal, bank wire, and cardless EMI</li>
+            <li>Asynchronous webhook settlement for card orders</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:0.6s;"></div><div class="mini-phone-screen" data-img="feature_checkout"><div class="placeholder-note">Checkout flow screenshot<br><code>/images/checkout.jpg</code></div></div></div>
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-copy">
+          <h3>A Complete Admin Suite</h3>
+          <p>Catalog, orders, coupons, outlets, blog, size charts, and store settings — fully responsive, so an order can be dispatched from a phone.</p>
+          <ul class="feature-list">
+            <li>25+ real-time management modules</li>
+            <li>Role-based access with route-level protection</li>
+            <li>Rate-limited, fail-closed admin middleware</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:1.8s;"></div><div class="mini-phone-screen" data-img="feature_admin"><div class="placeholder-note">Admin dashboard screenshot<br><code>/images/admin-dashboard.jpg</code></div></div></div>
+        </div>
+      </div>
+
+      <div class="feature-row rev" style="border-bottom: none;">
+        <div class="feature-copy">
+          <h3>Native-Feel PWA, Global-Ready</h3>
+          <p>Installable on a home screen with offline caching, plus true Arabic RTL mirroring and localized currencies for expansion into new markets.</p>
+          <ul class="feature-list">
+            <li>Service-worker-backed offline support</li>
+            <li>English, Bengali, and Arabic (RTL) included</li>
+            <li>Auto-formatted currencies: USD, EUR, SAR, AED, KWD</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:3.0s;"></div><div class="mini-phone-screen" data-img="feature_pwa"><div class="placeholder-note">Mobile PWA / RTL screenshot<br><code>/images/mobile-rtl.jpg</code></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECH MARQUEE ============ -->
+  <div class="marquee-section" id="stack">
+    <div class="marquee-label">Built on a modern, production-grade stack</div>
+    <div class="marquee-track">
+      <span>Next.js 14</span><span>TypeScript</span><span>Prisma</span><span>PostgreSQL</span>
+      <span>Tailwind CSS</span><span>Stripe</span><span>Supabase</span><span>NextAuth.js</span>
+      <span>Next.js 14</span><span>TypeScript</span><span>Prisma</span><span>PostgreSQL</span>
+      <span>Tailwind CSS</span><span>Stripe</span><span>Supabase</span><span>NextAuth.js</span>
+    </div>
+  </div>
+
+  <!-- ============ SCREENS ============ -->
+  <section id="screens">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">A Closer Look</span>
+        <h2>Every core screen, ready to preview.</h2>
+        <p>Swap each placeholder below with your own screenshot before deploying — file paths are noted on each card.</p>
+      </div>
+      <div class="screens-grid">
+        <div class="screen-card">
+          <div class="screen-thumb"><div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:4.2s;"></div><div class="mini-phone-screen" data-img="screen_home"><div class="placeholder-note"><code>/images/homepage.jpg</code></div></div></div></div>
+          <div class="screen-meta">Editorial Homepage</div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-thumb"><div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:0.3s;"></div><div class="mini-phone-screen" data-img="screen_shop"><div class="placeholder-note"><code>/images/shop-filters.jpg</code></div></div></div></div>
+          <div class="screen-meta">Faceted Shop &amp; Filters</div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-thumb"><div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:1.5s;"></div><div class="mini-phone-screen" data-img="screen_pdp"><div class="placeholder-note"><code>/images/product-pdp.jpg</code></div></div></div></div>
+          <div class="screen-meta">Immersive Product Page</div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-thumb"><div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:2.7s;"></div><div class="mini-phone-screen" data-img="screen_checkout"><div class="placeholder-note"><code>/images/checkout.jpg</code></div></div></div></div>
+          <div class="screen-meta">Multi-Gateway Checkout</div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-thumb"><div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:3.9s;"></div><div class="mini-phone-screen" data-img="screen_admin"><div class="placeholder-note"><code>/images/admin-orders.jpg</code></div></div></div></div>
+          <div class="screen-meta">Admin Order Pipeline</div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-thumb"><div class="mini-phone"><div class="mini-phone-notch"></div><div class="phone-shine" style="animation-delay:5.1s;"></div><div class="mini-phone-screen" data-img="screen_rtl"><div class="placeholder-note"><code>/images/mobile-rtl.jpg</code></div></div></div></div>
+          <div class="screen-meta">Arabic RTL Storefront</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <div class="cta-band" id="get-it">
+    <div class="wrap">
+      <h2>See it running, not just described.</h2>
+      <p>The live demo is a real, working deployment — browse the storefront, then sign in to the admin panel with the demo credentials shown on the login page.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://maison-luxury-theme.vercel.app">View Live Storefront Demo</a>
+        <a class="btn btn-ghost" href="https://maison-luxury-theme.vercel.app/admin">Admin Panel Demo</a>
+      </div>
+      <div class="cta-note" style="margin-bottom: 10px;">Demo Email: <strong style="color: var(--gold);">demo@maison-preview.com</strong> &nbsp;·&nbsp; Demo Password: <strong style="color: var(--gold);">Preview@2026!</strong></div>
+      <div class="cta-note">This evaluation account resets periodically. Full documentation, setup guide, and support included with purchase.</div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
   <footer>
-    <div class="container">
-      <p>MAISON Luxury E-Commerce &bull; The Architecture of Modern Luxury &bull; Licensed for Commercial Distribution</p>
+    <div class="wrap foot-row">
+      <div class="foot-mark">MAISON</div>
+      <div>Commercial License · Support via CodeCanyon Item Page</div>
+      <div>&copy; 2026 MAISON. All rights reserved.</div>
     </div>
   </footer>
 
-  <!-- Toast Element -->
-  <div id="toast">Copied to Clipboard!</div>
-
   <script>
-    // Dynamically set QR Code to point to current domain or localhost
-    const currentOrigin = window.location.origin;
-    const qrImg = document.getElementById("qrImage");
-    if (qrImg) {
-      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(currentOrigin)}`;
-    }
-
-    // 1-Click Copy with Visual Toast
-    function copyText(text, btnElement) {
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = btnElement.innerText;
-        btnElement.innerText = "✓";
-        btnElement.classList.add("copied");
-
-        const toast = document.getElementById("toast");
-        toast.innerText = `COPIED: ${text}`;
-        toast.classList.add("active");
-
-        setTimeout(() => {
-          btnElement.innerText = originalText;
-          btnElement.classList.remove("copied");
-        }, 1600);
-
-        setTimeout(() => {
-          toast.classList.remove("active");
-        }, 2200);
-      }).catch(() => {
-        // Fallback for non-https / older browsers
-        const input = document.createElement("input");
-        input.value = text;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand("copy");
-        document.body.removeChild(input);
-        
-        btnElement.innerText = "✓";
-        setTimeout(() => { btnElement.innerText = "Copy"; }, 1600);
+    // Fills in any screenshot whose link was pasted into IMAGE_LINKS at the top
+    // of the file. Boxes left blank keep their dashed placeholder as-is.
+    (function () {
+      if (typeof IMAGE_LINKS === 'undefined') return;
+      Object.keys(IMAGE_LINKS).forEach(function (key) {
+        var url = (IMAGE_LINKS[key] || '').trim();
+        if (!url) return;
+        var target = document.querySelector('[data-img="' + key + '"]');
+        if (!target) return;
+        target.innerHTML = '';
+        target.style.padding = '0';       // remove the placeholder padding so the image fills edge-to-edge
+        target.style.lineHeight = '0';    // avoid a stray gap under the image
+        var img = document.createElement('img');
+        img.src = url;
+        img.alt = key.replace(/_/g, ' ');
+        img.style.display = 'block';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        target.appendChild(img);
       });
-    }
+    })();
+
+    // Hero visual: subtle mouse-driven tilt, tied to the theme's own "spin studio" feature.
+    (function () {
+      var stage = document.getElementById('tiltStage');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!stage || reduceMotion || window.matchMedia('(hover: none)').matches) return;
+
+      var host = stage.parentElement;
+      host.addEventListener('mousemove', function (e) {
+        var rect = host.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5;
+        var y = (e.clientY - rect.top) / rect.height - 0.5;
+        stage.style.transform = 'rotateY(' + (x * 10) + 'deg) rotateX(' + (y * -10) + 'deg)';
+      });
+      host.addEventListener('mouseleave', function () {
+        stage.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      });
+    })();
   </script>
 </body>
 </html>
